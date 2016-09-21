@@ -1,4 +1,4 @@
-This is the repository for Boostrap Email Builder.
+This is the repository for Bootstrap Email Builder.
 
 The libraries are available under different licenses depending on whether it is intended for commercial use, or for a personal project.
 

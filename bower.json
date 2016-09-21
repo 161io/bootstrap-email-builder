@@ -1,5 +1,5 @@
 {
-  "name": "boostrap-email-builder",
+  "name": "bootstrap-email-builder",
   "description": "Bootstrap Email Builder",
   "version": "0.0.1",
   "main": "dist/",
@@ -8,7 +8,7 @@
   ],
   "license": "SEE LICENSE IN <license.txt>",
   "keywords": [
-    "boostrap",
+    "bootstrap",
     "mail",
     "email",
     "emailer",
