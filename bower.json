@@ -1,0 +1,39 @@
+{
+  "name": "boostrap-email-builder",
+  "description": "Bootstrap Email Builder",
+  "version": "0.0.1",
+  "main": "dist/",
+  "authors": [
+    "161 SARL <contact@161.io> (http://161.io)"
+  ],
+  "license": "SEE LICENSE IN <license.txt>",
+  "keywords": [
+    "boostrap",
+    "mail",
+    "email",
+    "emailer",
+    "html",
+    "builder"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3",
+    "featherlight": "^1.5",
+    "jquery": "1.10 - 3",
+    "jquery-ui": "^1.11",
+    "jqueryui-touch-punch": "*",
+    "mjolnic-bootstrap-colorpicker": "^2.3",
+    "responsive-filemanager": "https://github.com/trippo/ResponsiveFilemanager/releases/download/v9.10.2/responsive_filemanager.zip",
+    "tinymce-dist": "^4.3",
+    "tinymce-langs-de": "https://www.tinymce.com/download/language/de",
+    "tinymce-langs-fr_FR": "https://www.tinymce.com/download/language/fr_FR"
+  },
+  "devDependencies": {
+    "highlightjs": "^9.6"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "post.php"
+  ]
+}

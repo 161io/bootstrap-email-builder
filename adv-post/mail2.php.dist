@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright (c) 161 SARL, http://161.io
+ */
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+require 'vendor/autoload.php';
+
+function mail2($to, $subject, $message, $headers = null)
+{
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = 'smtp...';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'your@e.mail';
+    $mail->Password = 'password';
+    //$mail->SMTPSecure = 'ssl';
+    $mail->Port = 587;
+
+    $mail->setFrom($to);
+    $mail->addAddress($to);
+    $mail->isHTML(true);
+
+    $mail->Subject = $subject;
+    $mail->Body = $message;
+    return $mail->send();
+}

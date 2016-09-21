@@ -1,0 +1,6 @@
+This is the repository for Boostrap Email Builder.
+
+The libraries are available under different licenses depending on whether it is intended for commercial use, or for a personal project.
+
+Read more on licensing alternatives here:
+- Bootstrap Email Buidler: http://sites.fastspring.com/161store/product/bootstrap-email-builder

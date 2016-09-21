@@ -1,0 +1,9 @@
+{
+    "name": "basselin/bootstrap-email-builder",
+    "description": "Test Bootstrap Email Builder with PHPMailer",
+    "type": "library",
+    "homepage": "https://github.com/basselin/bootstrap-email-builder",
+    "require": {
+        "phpmailer/phpmailer": "^6.0.0rc2"
+    }
+}

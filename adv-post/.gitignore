@@ -1,0 +1,3 @@
+vendor/
+composer.lock
+mail2.php
