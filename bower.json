@@ -8,6 +8,7 @@
   ],
   "license": "SEE LICENSE IN <license.txt>",
   "keywords": [
+    "bs",
     "bootstrap",
     "mail",
     "email",
@@ -33,7 +34,6 @@
   "ignore": [
     "**/.*",
     "bower_components",
-    "node_modules",
-    "post.php"
+    "node_modules"
   ]
 }
