@@ -51,6 +51,9 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       responsiveFilemanagerIframe = this.responsiveFilemanagerIframe;
       if (!responsiveFilemanagerIframe && win.tinyMCE && tinyMCE.settings.external_filemanager_path) {
         responsiveFilemanagerIframe = tinyMCE.settings.external_filemanager_path + 'dialog.php?type=1&field_id=bs-eb-src';
+        if (tinyMCE.settings.filemanager_access_key) {
+          responsiveFilemanagerIframe += '&akey=' + tinyMCE.settings.filemanager_access_key;
+        }
       }
       $a = this.$element.find('a').first();
       $img = this.$element.find('img').first();

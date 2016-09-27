@@ -51,6 +51,8 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
         if !responsiveFilemanagerIframe and win.tinyMCE and tinyMCE.settings.external_filemanager_path
             responsiveFilemanagerIframe = tinyMCE.settings.external_filemanager_path + 'dialog.php?type=1&field_id=bs-eb-src'
             #responsiveFilemanagerIframe += '&lang=' + BsEbConstant.translate('en')
+            if tinyMCE.settings.filemanager_access_key
+                responsiveFilemanagerIframe += '&akey=' + tinyMCE.settings.filemanager_access_key
 
         $a   = @$element.find('a').first()
         $img = @$element.find('img').first()
