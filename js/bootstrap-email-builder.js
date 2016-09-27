@@ -278,7 +278,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
         width = this.defaultWidth;
       }
       this.$inputWidth.val(width);
-      bgColor = this.$render.data('bgcolor');
+      bgColor = this.$render.data('body-bgcolor');
       if (!bgColor) {
         bgColor = this.defaultBgColor;
       }
@@ -531,7 +531,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
           return $picker.trigger('click');
         }).on('changeColor.up', function() {
           return $picker.parent().find('.btn-colorpicker').css({
-            backgroundColor: $picker.colorpicker('getValue', '#fff')
+            background: $picker.colorpicker('getValue', '#fff')
           });
         }).parent().find('.btn-colorpicker').on('click', function() {
           return $picker.focus();

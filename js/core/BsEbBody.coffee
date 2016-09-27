@@ -53,7 +53,7 @@ class win.BsEbBody
         if !width then width = @defaultWidth
         @$inputWidth.val width
 
-        bgColor = @$render.data 'bgcolor'
+        bgColor = @$render.data 'body-bgcolor'
         if !bgColor then bgColor = @defaultBgColor
         @$inputBackgroundColor.val bgColor
         @bodyStyle.backgroundColor = bgColor

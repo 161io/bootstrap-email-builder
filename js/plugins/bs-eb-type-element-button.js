@@ -24,7 +24,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
     }
 
     BsEbTypeElementButton.tabButton = function() {
-      return "<div class=\"col-xs-6\">\n<a class=\"btn btn-lg btn-block btn-default\" data-draggable-type=\"elt-button\">\n    <span class=\"glyphicon glyphicon-link\"></span><br/>\n    <span>" + (BsEbConstant.translate('Link/Button')) + "</span>\n</a>\n</div>";
+      return "<div class=\"col-xs-6\">\n<a class=\"btn btn-lg btn-block btn-default\" data-draggable-type=\"elt-button\">\n    <span class=\"glyphicon glyphicon-link\"></span><br/>\n    <span>" + (BsEbConstant.translate('Link/button')) + "</span>\n</a>\n</div>";
     };
 
     BsEbTypeElementButton.prototype.defaultHref = '#';

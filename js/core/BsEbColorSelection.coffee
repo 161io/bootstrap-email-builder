@@ -68,7 +68,7 @@ class win.BsEbColorSelection
                 .on 'changeColor', -> $picker.trigger 'click'
                 .on 'changeColor.up', ->
                     $picker.parent().find('.btn-colorpicker').css {
-                        backgroundColor: $picker.colorpicker 'getValue', '#fff'
+                        background: $picker.colorpicker 'getValue', '#fff'
                     }
                 .parent().find('.btn-colorpicker').on 'click', -> $picker.focus()
 

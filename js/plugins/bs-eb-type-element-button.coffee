@@ -18,7 +18,7 @@ class win.BsEbTypeElementButton extends win.AbstractBsEbTypeElement
         <div class="col-xs-6">
         <a class="btn btn-lg btn-block btn-default" data-draggable-type="elt-button">
             <span class="glyphicon glyphicon-link"></span><br/>
-            <span>#{ BsEbConstant.translate('Link/Button') }</span>
+            <span>#{ BsEbConstant.translate('Link/button') }</span>
         </a>
         </div>
         """
