@@ -27,7 +27,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       return "<div class=\"col-xs-6\">\n<a class=\"btn btn-lg btn-block btn-default\" data-draggable-type=\"elt-text\">\n    <span class=\"glyphicon glyphicon-link\"></span><br/>\n    <span>" + (BsEbConstant.translate('Text')) + "</span>\n</a>\n</div>";
     };
 
-    BsEbTypeElementText.prototype.defaultText = "<p>Lorem ipsum dolor sit amet, <a href=\"#\" target=\"_blank\">consectetur adipiscing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>";
+    BsEbTypeElementText.prototype.defaultText = "<p>Lorem <a href=\"#\" target=\"_blank\">ipsum</a>...</p>";
 
     BsEbTypeElementText.prototype.buildHtml = function($helper, type) {
       var html;
@@ -53,6 +53,10 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
             return ignoreClick = false;
           }
           _this.disableSortable(true);
+          if (tinyMCE.activeEditor && tinyMCE.activeEditor.id !== newId) {
+            tinyMCE.execCommand('mceRemoveEditor', true, tinyMCE.activeEditor.id);
+          }
+          tinyMCE.execCommand('mceAddEditor', false, newId);
           return tinyMCE.execCommand('mceFocus', false, newId);
         };
       })(this)).on('focus', (function(_this) {

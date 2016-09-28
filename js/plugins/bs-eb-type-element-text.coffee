@@ -22,7 +22,7 @@ class win.BsEbTypeElementText extends win.AbstractBsEbTypeElement
         </div>
         """
 
-    defaultText: """<p>Lorem ipsum dolor sit amet, <a href="#" target="_blank">consectetur adipiscing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>"""
+    defaultText: """<p>Lorem <a href="#" target="_blank">ipsum</a>...</p>"""
 
     # @param {jQuery} $helper
     # @param {String} type
@@ -52,6 +52,10 @@ class win.BsEbTypeElementText extends win.AbstractBsEbTypeElement
             .on 'click', =>
                 if ignoreClick then return ignoreClick = false
                 @disableSortable true
+                if tinyMCE.activeEditor and tinyMCE.activeEditor.id != newId
+                    tinyMCE.execCommand('mceRemoveEditor', true, tinyMCE.activeEditor.id)
+
+                tinyMCE.execCommand('mceAddEditor', false, newId)
                 tinyMCE.execCommand('mceFocus', false, newId)
             .on 'focus', =>
                 if @$element.text() == $(@defaultText).text() then tinyMCE.get(newId).setContent ''
