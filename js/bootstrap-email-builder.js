@@ -675,16 +675,20 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 
   win.BsEbModal = (function() {
     function BsEbModal(options) {
-      var ref, ref1, ref2, ref3, ref4, ref5, ref6;
-      this.title = (ref = options.title) != null ? ref : "Modal", this.body = (ref1 = options.body) != null ? ref1 : "", this.btnCancelClick = (ref2 = options.btnCancelClick) != null ? ref2 : function() {}, this.btnCancelValue = (ref3 = options.btnCancelValue) != null ? ref3 : BsEbConstant.translate('Cancel'), this.btnOkClick = (ref4 = options.btnOkClick) != null ? ref4 : function() {}, this.btnOkValue = (ref5 = options.btnOkValue) != null ? ref5 : BsEbConstant.translate('OK'), this.modalReady = (ref6 = options.modalReady) != null ? ref6 : function() {};
+      var ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7;
+      this.title = (ref = options.title) != null ? ref : "Modal", this.body = (ref1 = options.body) != null ? ref1 : "", this.btnCancelClick = (ref2 = options.btnCancelClick) != null ? ref2 : function() {}, this.btnCancelValue = (ref3 = options.btnCancelValue) != null ? ref3 : BsEbConstant.translate('Cancel'), this.btnOkClick = (ref4 = options.btnOkClick) != null ? ref4 : function() {}, this.btnOkValue = (ref5 = options.btnOkValue) != null ? ref5 : BsEbConstant.translate('OK'), this.modalLarge = (ref6 = options.modalLarge) != null ? ref6 : false, this.modalReady = (ref7 = options.modalReady) != null ? ref7 : function() {};
       $(BsEbConstant.SELECTOR_ID_MODAL).remove();
       this.$modal = null;
       this.buildHtml();
     }
 
     BsEbModal.prototype.buildHtml = function() {
-      var $modal;
-      $modal = $("<div class=\"modal fade\" id=\"" + BsEbConstant.ID_MODAL + "\" tabindex=\"-1\" role=\"dialog\"><div class=\"modal-dialog\"><div class=\"modal-content\">\n<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><h4 class=\"modal-title\">" + this.title + "</h4></div>\n<div class=\"modal-body\">" + this.body + "</div>\n<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default btn-cancel\" data-dismiss=\"modal\">" + this.btnCancelValue + "</button> <button type=\"button\" class=\"btn btn-primary btn-ok\">" + this.btnOkValue + "</button></div>\n</div></div></div>");
+      var $modal, modalDialogClass;
+      modalDialogClass = 'modal-dialog';
+      if (this.modalLarge) {
+        modalDialogClass += ' modal-lg';
+      }
+      $modal = $("<div class=\"modal fade\" id=\"" + BsEbConstant.ID_MODAL + "\" tabindex=\"-1\" role=\"dialog\"><div class=\"" + modalDialogClass + "\"><div class=\"modal-content\">\n<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button><h4 class=\"modal-title\">" + this.title + "</h4></div>\n<div class=\"modal-body\">" + this.body + "</div>\n<div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default btn-cancel\" data-dismiss=\"modal\">" + this.btnCancelValue + "</button> <button type=\"button\" class=\"btn btn-primary btn-ok\">" + this.btnOkValue + "</button></div>\n</div></div></div>");
       this.$modal = $modal;
       $modal.find('.btn-cancel').on('click', this.btnCancelClick);
       $modal.find('.btn-ok').on('click', this.btnOkClick);
