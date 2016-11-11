@@ -111,7 +111,7 @@ class win.BsEbTypeStructure
                     <label for="bs-eb-bgcolor">#{ BsEbConstant.translate('Background color') }</label>
                     <div class="input-group">
                         <input type="text" id="bs-eb-bgcolor" value="#{ bgcolor }" placeholder="#ffffff" class="form-control"/>
-                        <span class="input-group-addon" style="background-color:#{ bgcolor };">&nbsp;&nbsp;</span>
+                        <div class="input-group-btn"><button type="button" class="btn btn-default btn-colorpicker"><i></i></button></div>
                     </div>
                 </div>
                 """
@@ -131,16 +131,7 @@ class win.BsEbTypeStructure
                         backgroundColor: bgcolor
                     }
             modalReady: ->
-                $('#bs-eb-bgcolor')
-                    .colorpicker {
-                        format: 'hex'
-                    }
-                    .on 'changeColor', ->
-                        $picker = $(@)
-                        $picker.next().css {
-                            backgroundColor: $picker.colorpicker('getValue', '#fff')
-                        }
-                    .siblings('.input-group-addon').on 'click', -> $(@).siblings('input').focus()
+                BsEbColorSelection.colorpicker '#bs-eb-bgcolor'
         }
         @
 

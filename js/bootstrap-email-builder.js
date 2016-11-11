@@ -851,7 +851,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       }
       modal = new win.BsEbModal({
         title: BsEbConstant.translate('Structure'),
-        body: "<div class=\"form-group\">\n    <code class=\"pull-right\">valign</code>\n    <label for=\"bs-eb-valign\">" + (BsEbConstant.translate('Vertical alignment')) + "</label>\n    <select id=\"bs-eb-valign\" class=\"form-control\">\n        <option value=\"middle\" " + (selected('middle', valign)) + ">" + (BsEbConstant.translate('Middle')) + "</option>\n        <option value=\"top\" " + (selected('top', valign)) + ">" + (BsEbConstant.translate('Top')) + "</option>\n        <option value=\"bottom\" " + (selected('bottom', valign)) + ">" + (BsEbConstant.translate('Bottom')) + "</option>\n    </select>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">cellspacing</code>\n    <label for=\"bs-eb-cellspacing\">" + (BsEbConstant.translate('Space between the cell')) + "</label>\n    <select id=\"bs-eb-cellspacing\" class=\"form-control\">\n        <option value=\"0\" " + (selected(0, cellspacing)) + ">0px</option>\n        <option value=\"5\" " + (selected(5, cellspacing)) + ">5px</option>\n        <option value=\"10\" " + (selected(10, cellspacing)) + ">10px</option>\n        <option value=\"15\" " + (selected(15, cellspacing)) + ">15px</option>\n        <option value=\"20\" " + (selected(20, cellspacing)) + ">20px</option>\n        <option value=\"25\" " + (selected(25, cellspacing)) + ">25px</option>\n        <option value=\"30\" " + (selected(30, cellspacing)) + ">30px</option>\n        <option value=\"40\" " + (selected(40, cellspacing)) + ">40px</option>\n        <option value=\"50\" " + (selected(50, cellspacing)) + ">50px</option>\n    </select>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">bgcolor</code>\n    <label for=\"bs-eb-bgcolor\">" + (BsEbConstant.translate('Background color')) + "</label>\n    <div class=\"input-group\">\n        <input type=\"text\" id=\"bs-eb-bgcolor\" value=\"" + bgcolor + "\" placeholder=\"#ffffff\" class=\"form-control\"/>\n        <span class=\"input-group-addon\" style=\"background-color:" + bgcolor + ";\">&nbsp;&nbsp;</span>\n    </div>\n</div>",
+        body: "<div class=\"form-group\">\n    <code class=\"pull-right\">valign</code>\n    <label for=\"bs-eb-valign\">" + (BsEbConstant.translate('Vertical alignment')) + "</label>\n    <select id=\"bs-eb-valign\" class=\"form-control\">\n        <option value=\"middle\" " + (selected('middle', valign)) + ">" + (BsEbConstant.translate('Middle')) + "</option>\n        <option value=\"top\" " + (selected('top', valign)) + ">" + (BsEbConstant.translate('Top')) + "</option>\n        <option value=\"bottom\" " + (selected('bottom', valign)) + ">" + (BsEbConstant.translate('Bottom')) + "</option>\n    </select>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">cellspacing</code>\n    <label for=\"bs-eb-cellspacing\">" + (BsEbConstant.translate('Space between the cell')) + "</label>\n    <select id=\"bs-eb-cellspacing\" class=\"form-control\">\n        <option value=\"0\" " + (selected(0, cellspacing)) + ">0px</option>\n        <option value=\"5\" " + (selected(5, cellspacing)) + ">5px</option>\n        <option value=\"10\" " + (selected(10, cellspacing)) + ">10px</option>\n        <option value=\"15\" " + (selected(15, cellspacing)) + ">15px</option>\n        <option value=\"20\" " + (selected(20, cellspacing)) + ">20px</option>\n        <option value=\"25\" " + (selected(25, cellspacing)) + ">25px</option>\n        <option value=\"30\" " + (selected(30, cellspacing)) + ">30px</option>\n        <option value=\"40\" " + (selected(40, cellspacing)) + ">40px</option>\n        <option value=\"50\" " + (selected(50, cellspacing)) + ">50px</option>\n    </select>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">bgcolor</code>\n    <label for=\"bs-eb-bgcolor\">" + (BsEbConstant.translate('Background color')) + "</label>\n    <div class=\"input-group\">\n        <input type=\"text\" id=\"bs-eb-bgcolor\" value=\"" + bgcolor + "\" placeholder=\"#ffffff\" class=\"form-control\"/>\n        <div class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-default btn-colorpicker\"><i></i></button></div>\n    </div>\n</div>",
         btnOkClick: function() {
           modal.hide();
           valign = $('#bs-eb-valign').val();
@@ -865,17 +865,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
           });
         },
         modalReady: function() {
-          return $('#bs-eb-bgcolor').colorpicker({
-            format: 'hex'
-          }).on('changeColor', function() {
-            var $picker;
-            $picker = $(this);
-            return $picker.next().css({
-              backgroundColor: $picker.colorpicker('getValue', '#fff')
-            });
-          }).siblings('.input-group-addon').on('click', function() {
-            return $(this).siblings('input').focus();
-          });
+          return BsEbColorSelection.colorpicker('#bs-eb-bgcolor');
         }
       });
       return this;
