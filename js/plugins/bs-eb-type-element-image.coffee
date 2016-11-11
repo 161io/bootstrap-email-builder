@@ -22,9 +22,11 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
         </div>
         """
 
-    defaultSrc  : ''
-    defaultAlt  : 'image'
-    defaultStyle: 'display:block;border:0 none;width:100%;height:auto;'
+    defaultSrc   : ''
+    defaultAlt   : 'image'
+    defaultWidth : ''
+    defaultHeight: ''
+    defaultStyle : 'border:0 none;'
 
     responsiveFilemanagerIframe: ''
 
@@ -36,7 +38,7 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
         if !html
             html = """
                 <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-                <img src="#{ @defaultSrc }" alt="#{ @defaultAlt }" border="0" style="#{ @defaultStyle }"/>
+                <img src="#{ @defaultSrc }" alt="#{ @defaultAlt }" border="0" style="#{ @defaultStyle }" width="#{ @defaultWidth }" height="#{ @defaultHeight }"/>
                 </div>
                 """
         super $helper, type, html
@@ -56,11 +58,19 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
             if tinyMCE.settings.filemanager_access_key
                 responsiveFilemanagerIframe += '&akey=' + tinyMCE.settings.filemanager_access_key
 
+        filterIntOrNull = (int) ->
+            int = parseInt int
+            return if isNaN(int) or int < 1 then '' else int
+
+        self = @
         $a   = @$element.find('a').first()
         $img = @$element.find('img').first()
-        href = BsEbConstant.escape $a.attr 'href'
-        src  = BsEbConstant.escape $img.attr 'src'
-        alt  = BsEbConstant.escape $img.attr 'alt'
+        src     = BsEbConstant.escape $img.attr 'src'
+        width   = filterIntOrNull $img.attr('width')
+        height  = filterIntOrNull $img.attr('height')
+        alt     = BsEbConstant.escape $img.attr 'alt'
+        isBlock = $img.css('display') == 'block'
+        href    = BsEbConstant.escape $a.attr 'href'
 
         modal = new win.BsEbModal {
             title: BsEbConstant.translate('Content') + ' : ' + BsEbConstant.translate('Image')
@@ -77,6 +87,20 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
                     <code class="pull-right">alt=&quot;...&quot;</code>
                     <label for="bs-eb-alt">#{ BsEbConstant.translate('Image description') }</label>
                     <input type="text" id="bs-eb-alt" value="#{ alt }" class="form-control" maxlength="50"/>
+                </div>
+                <div class="form-group">
+                    <code class="pull-right">width=&quot;...&quot;</code>
+                    <label for="bs-eb-width">#{ BsEbConstant.translate('Width') }</label>
+                    <input type="text" id="bs-eb-width" value="#{ width }" class="form-control" maxlength="5"/>
+                </div>
+                <div class="form-group">
+                    <code class="pull-right">height=&quot;...&quot;</code>
+                    <label for="bs-eb-height">#{ BsEbConstant.translate('Height') }</label>
+                    <input type="text" id="bs-eb-height" value="#{ height }" class="form-control" maxlength="5"/>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" id="bs-eb-block"#{ if isBlock then ' checked="checked"' else '' }/>
+                    #{ BsEbConstant.translate('Image as a block') } <code>&quot;display:block&quot;</code></label>
                 </div>
                 <hr/>
                 <div class="form-group">
@@ -97,8 +121,23 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
                     $img.appendTo $a.parent()
                     $a.remove()
 
-                $img.attr 'src', $('#bs-eb-src').val()
-                    .attr 'alt', $('#bs-eb-alt').val()
+                inputWidth   = filterIntOrNull $('#bs-eb-width').val()
+                inputHeight  = filterIntOrNull $('#bs-eb-height').val()
+                inputIsBlock = $('#bs-eb-block').prop 'checked'
+
+                $img
+                    .attr {
+                        'src'   : $('#bs-eb-src').val()
+                        'alt'   : $('#bs-eb-alt').val()
+                        'width' : inputWidth
+                        'height': inputHeight
+                    }
+                    .css {
+                        'display': if inputIsBlock then 'block' else ''
+                        'border' : '0 none'
+                        'width'  : inputWidth
+                        'height' : inputHeight
+                    }
             modalReady: ->
                 $('#bs-eb-src-browse').on 'click', ->
                     if !responsiveFilemanagerIframe
@@ -108,9 +147,47 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
                     # https://github.com/noelboss/featherlight/#installation
                     lightbox = $.featherlight("""<iframe src="#{ responsiveFilemanagerIframe }" width="900" height="600" frameborder="0" style="border:none;"></iframe>""", {})
                     win.responsive_filemanager_callback = (fieldId) ->
+                        self.detectSize()
                         lightbox.close()
                         setTimeout (-> modal.show() ), 500
         }
+
+        $src = $('#bs-eb-src')
+        $src.on 'change blur', @detectSize
+            .data 'prevVal', $src.val()
         @
+
+    detectSize: ->
+        $src    = $('#bs-eb-src')
+        $width  = $('#bs-eb-width')
+        $height = $('#bs-eb-height')
+        $src.parents('.form-group').removeClass('has-error')
+
+        return false if !$src.val() or $src.val() == $src.data('prevVal')
+
+        $src.data('prevVal', $src.val())
+        imgClassName = 'bs-eb-img-detect-size'
+        cleanImgs = -> $('.' + imgClassName).remove()
+
+        $img = $("""<img alt="" class="#{ imgClassName }"/>""")
+        $img
+            .css {
+                position: 'absolute'
+                left    : '-100%'
+                top     : '-100%'
+            }
+            .on 'load', ->
+                setTimeout(->
+                    $width.val($img.width())
+                    $height.val($img.height())
+                    cleanImgs()
+                , 200)
+            .on 'error', ->
+                $src.parents('.form-group').addClass('has-error')
+                cleanImgs()
+        $img
+            .attr 'src', $src.val()
+            .appendTo 'body'
+
 
 

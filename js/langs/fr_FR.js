@@ -15,6 +15,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
   bootstrapEmailBuilder.locale = $.extend(bootstrapEmailBuilder.locale, {
     'en': 'fr_FR',
     'Background color': 'Couleur de fond',
+    'Image as a block': 'Bloc image',
     'Body': 'Page (body)',
     'Bold': 'Texte en gras',
     'Bottom': 'Bas',
@@ -26,6 +27,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
     'Divider': 'S&eacute;parateur',
     'Font': 'Police',
     'Font size': 'Taille de police',
+    'Height': 'Hauteur',
     'Image': 'Image',
     'Image description': 'Description de l&rsquo;image',
     'Label': 'Intitul&eacute;',
