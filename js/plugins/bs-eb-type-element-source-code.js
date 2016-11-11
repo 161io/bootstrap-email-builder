@@ -27,9 +27,10 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       return "<div class=\"col-xs-6\">\n<a class=\"btn btn-lg btn-block btn-default\" data-draggable-type=\"elt-source-code\">\n    <kbd>&lt;/&gt;</kbd><br/>\n    <span>" + (BsEbConstant.translate('Source code')) + "</span>\n</a>\n</div>";
     };
 
-    BsEbTypeElementSourceCode.prototype.buildHtml = function($helper, type) {
-      var html;
-      html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">\n<code>HTML source</code>\n</div>";
+    BsEbTypeElementSourceCode.prototype.buildHtml = function($helper, type, html) {
+      if (!html) {
+        html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">\n<code>HTML source</code>\n</div>";
+      }
       return BsEbTypeElementSourceCode.__super__.buildHtml.call(this, $helper, type, html);
     };
 

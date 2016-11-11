@@ -29,9 +29,10 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 
     BsEbTypeElementText.prototype.defaultText = "<p>Lorem <a href=\"#\" target=\"_blank\">ipsum</a>...</p>";
 
-    BsEbTypeElementText.prototype.buildHtml = function($helper, type) {
-      var html;
-      html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">" + this.defaultText + "</div>";
+    BsEbTypeElementText.prototype.buildHtml = function($helper, type, html) {
+      if (!html) {
+        html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">" + this.defaultText + "</div>";
+      }
       return BsEbTypeElementText.__super__.buildHtml.call(this, $helper, type, html);
     };
 

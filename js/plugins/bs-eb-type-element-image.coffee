@@ -30,13 +30,15 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementImage}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-            <img src="#{ @defaultSrc }" alt="#{ @defaultAlt }" border="0" style="#{ @defaultStyle }"/>
-            </div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
+                <img src="#{ @defaultSrc }" alt="#{ @defaultAlt }" border="0" style="#{ @defaultStyle }"/>
+                </div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementImage}

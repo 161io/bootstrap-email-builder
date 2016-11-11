@@ -26,11 +26,13 @@ class win.BsEbTypeElementText extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementText}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">#{ @defaultText }</div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">#{ @defaultText }</div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementText}

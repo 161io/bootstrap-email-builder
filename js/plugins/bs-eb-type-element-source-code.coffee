@@ -24,13 +24,15 @@ class win.BsEbTypeElementSourceCode extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementSourceCode}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-            <code>HTML source</code>
-            </div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
+                <code>HTML source</code>
+                </div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementSourceCode}

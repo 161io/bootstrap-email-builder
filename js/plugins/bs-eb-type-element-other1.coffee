@@ -26,13 +26,15 @@ class win.BsEbTypeElementOther1 extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementOther1}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-            <p>#{ BsEbConstant.translate('Other...') }</p>
-            </div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
+                <p>#{ BsEbConstant.translate('Other...') }</p>
+                </div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementOther1}

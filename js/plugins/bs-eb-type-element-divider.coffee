@@ -28,13 +28,15 @@ class win.BsEbTypeElementDivider extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementDivider}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-            <hr noshade="noshade" size="#{ @defaultSize }" color="#{ @defaultColor }" style="#{ @defaultStyle }"/>
-            </div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
+                <hr noshade="noshade" size="#{ @defaultSize }" color="#{ @defaultColor }" style="#{ @defaultStyle }"/>
+                </div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementDivider}

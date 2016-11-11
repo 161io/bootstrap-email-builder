@@ -28,13 +28,15 @@ class win.BsEbTypeElementButton extends win.AbstractBsEbTypeElement
 
     # @param {jQuery} $helper
     # @param {String} type
+    # @param {String} html
     # @return {BsEbTypeElementButton}
-    buildHtml: ($helper, type) ->
-        html = """
-            <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }" style="text-align:center;">
-            <br/><a href="#{ @defaultHref }" style="#{ @defaultStyle }" target="_blank">Button</a><br/><br/>
-            </div>
-            """
+    buildHtml: ($helper, type, html) ->
+        if !html
+            html = """
+                <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }" style="text-align:center;">
+                <br/><a href="#{ @defaultHref }" style="#{ @defaultStyle }" target="_blank">Button</a><br/><br/>
+                </div>
+                """
         super $helper, type, html
 
     # @return {BsEbTypeElementButton}

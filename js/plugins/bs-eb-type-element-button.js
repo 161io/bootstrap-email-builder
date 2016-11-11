@@ -31,9 +31,10 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 
     BsEbTypeElementButton.prototype.defaultStyle = 'border-radius:4px;background-color:#337ab7;color:#fff;text-decoration:none;padding:10px 15px;';
 
-    BsEbTypeElementButton.prototype.buildHtml = function($helper, type) {
-      var html;
-      html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\" style=\"text-align:center;\">\n<br/><a href=\"" + this.defaultHref + "\" style=\"" + this.defaultStyle + "\" target=\"_blank\">Button</a><br/><br/>\n</div>";
+    BsEbTypeElementButton.prototype.buildHtml = function($helper, type, html) {
+      if (!html) {
+        html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\" style=\"text-align:center;\">\n<br/><a href=\"" + this.defaultHref + "\" style=\"" + this.defaultStyle + "\" target=\"_blank\">Button</a><br/><br/>\n</div>";
+      }
       return BsEbTypeElementButton.__super__.buildHtml.call(this, $helper, type, html);
     };
 
