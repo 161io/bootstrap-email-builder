@@ -89,14 +89,13 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
                     <input type="text" id="bs-eb-alt" value="#{ alt }" class="form-control" maxlength="50"/>
                 </div>
                 <div class="form-group">
-                    <code class="pull-right">width=&quot;...&quot;</code>
-                    <label for="bs-eb-width">#{ BsEbConstant.translate('Width') }</label>
-                    <input type="text" id="bs-eb-width" value="#{ width }" class="form-control" maxlength="5"/>
-                </div>
-                <div class="form-group">
-                    <code class="pull-right">height=&quot;...&quot;</code>
-                    <label for="bs-eb-height">#{ BsEbConstant.translate('Height') }</label>
-                    <input type="text" id="bs-eb-height" value="#{ height }" class="form-control" maxlength="5"/>
+                    <code class="pull-right">width=&quot;...&quot; height=&quot;...&quot;</code>
+                    <label for="bs-eb-width">#{ BsEbConstant.translate('Width') } &times; #{ BsEbConstant.translate('Height') }</label>
+                    <div class="row">
+                        <div class="col-xs-5"><input type="text" id="bs-eb-width" value="#{ width }" class="form-control" maxlength="5"/></div>
+                        <div class="col-xs-2 text-center"><button type="button" class="btn btn-default btn-block active" id="bs-eb-btn-ratio"><span class="glyphicon glyphicon-transfer"></span></button></div>
+                        <div class="col-xs-5"><input type="text" id="bs-eb-height" value="#{ height }" class="form-control" maxlength="5"/></div>
+                    </div>
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" id="bs-eb-block"#{ if isBlock then ' checked="checked"' else '' }/>
@@ -152,11 +151,43 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
                         setTimeout (-> modal.show() ), 500
         }
 
+        ratio = if width > 0 and height > 0 then (width / height) else 1
+
         $src = $('#bs-eb-src')
         $src.on 'change blur', @detectSize
+            .data 'ratio', ratio
             .data 'prevVal', $src.val()
+        @ratioTool()
         @
 
+    # Ratio lock/unlock
+    ratioTool: ->
+        $src      = $('#bs-eb-src')
+        $width    = $('#bs-eb-width')
+        $height   = $('#bs-eb-height')
+        $btnRatio = $('#bs-eb-btn-ratio')
+
+        calcSize = (widthOrHeight = 'width') ->
+            return if !$btnRatio.hasClass 'active'
+            width  = parseInt $width.val()
+            height = parseInt $height.val()
+            ratio  = $src.data 'ratio'
+            if isNaN(width) or width < 1 then width = 0
+            if isNaN(height) or height < 1 then height = 0
+            if 'width' == widthOrHeight
+                height = Math.round(width / ratio)
+                if height > 0 then $height.val height
+            else
+                width = Math.round(height * ratio)
+                if width > 0 then $width.val width
+            return
+
+        # evens
+        $btnRatio.on 'click', -> $btnRatio.toggleClass('active'); calcSize()
+        $width.on 'keyup', -> calcSize()
+        $height.on 'keyup', -> calcSize('height')
+
+    # Load image
     detectSize: ->
         $src    = $('#bs-eb-src')
         $width  = $('#bs-eb-width')
@@ -165,7 +196,8 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
 
         return false if !$src.val() or $src.val() == $src.data('prevVal')
 
-        $src.data('prevVal', $src.val())
+        $src.data 'ratio', 1
+            .data 'prevVal', $src.val()
         imgClassName = 'bs-eb-img-detect-size'
         cleanImgs = -> $('.' + imgClassName).remove()
 
@@ -178,8 +210,13 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
             }
             .on 'load', ->
                 setTimeout(->
-                    $width.val($img.width())
-                    $height.val($img.height())
+                    width  = $img.width()
+                    height = $img.height()
+                    ratio  = if width > 0 and height > 0 then (width / height) else 1
+
+                    $width.val width
+                    $height.val height
+                    $src.data 'ratio', ratio
                     cleanImgs()
                 , 200)
             .on 'error', ->
@@ -188,6 +225,5 @@ class win.BsEbTypeElementImage extends win.AbstractBsEbTypeElement
         $img
             .attr 'src', $src.val()
             .appendTo 'body'
-
 
 

@@ -52,7 +52,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
     };
 
     BsEbTypeElementImage.prototype.onMore = function() {
-      var $a, $img, $src, alt, filterIntOrNull, height, href, isBlock, modal, responsiveFilemanagerIframe, self, src, width;
+      var $a, $img, $src, alt, filterIntOrNull, height, href, isBlock, modal, ratio, responsiveFilemanagerIframe, self, src, width;
       responsiveFilemanagerIframe = this.responsiveFilemanagerIframe;
       if (!responsiveFilemanagerIframe && win.tinyMCE && tinyMCE.settings.external_filemanager_path) {
         responsiveFilemanagerIframe = tinyMCE.settings.external_filemanager_path + 'dialog.php?type=1&field_id=bs-eb-src';
@@ -79,7 +79,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       href = BsEbConstant.escape($a.attr('href'));
       modal = new win.BsEbModal({
         title: BsEbConstant.translate('Content') + ' : ' + BsEbConstant.translate('Image'),
-        body: "<div class=\"form-group\">\n    <code class=\"pull-right\">src=&quot;...&quot;</code>\n    <label for=\"bs-eb-src\">" + (BsEbConstant.translate('Source')) + "</label>\n    <div class=\"input-group\">\n        <input type=\"text\" id=\"bs-eb-src\" value=\"" + src + "\" placeholder=\"https:// ... image.jpg\" class=\"form-control\"/>\n        <span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" id=\"bs-eb-src-browse\">" + (BsEbConstant.translate('Browse')) + "</button></span>\n    </div>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">alt=&quot;...&quot;</code>\n    <label for=\"bs-eb-alt\">" + (BsEbConstant.translate('Image description')) + "</label>\n    <input type=\"text\" id=\"bs-eb-alt\" value=\"" + alt + "\" class=\"form-control\" maxlength=\"50\"/>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">width=&quot;...&quot;</code>\n    <label for=\"bs-eb-width\">" + (BsEbConstant.translate('Width')) + "</label>\n    <input type=\"text\" id=\"bs-eb-width\" value=\"" + width + "\" class=\"form-control\" maxlength=\"5\"/>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">height=&quot;...&quot;</code>\n    <label for=\"bs-eb-height\">" + (BsEbConstant.translate('Height')) + "</label>\n    <input type=\"text\" id=\"bs-eb-height\" value=\"" + height + "\" class=\"form-control\" maxlength=\"5\"/>\n</div>\n<div class=\"checkbox\">\n    <label><input type=\"checkbox\" id=\"bs-eb-block\"" + (isBlock ? ' checked="checked"' : '') + "/>\n    " + (BsEbConstant.translate('Image as a block')) + " <code>&quot;display:block&quot;</code></label>\n</div>\n<hr/>\n<div class=\"form-group\">\n    <code class=\"pull-right\">href=&quot;...&quot;</code>\n    <label for=\"bs-eb-href\">" + (BsEbConstant.translate('Url')) + "</label>\n    <input type=\"url\" id=\"bs-eb-href\" value=\"" + href + "\" placeholder=\"https://...\" class=\"form-control\"/>\n</div>",
+        body: "<div class=\"form-group\">\n    <code class=\"pull-right\">src=&quot;...&quot;</code>\n    <label for=\"bs-eb-src\">" + (BsEbConstant.translate('Source')) + "</label>\n    <div class=\"input-group\">\n        <input type=\"text\" id=\"bs-eb-src\" value=\"" + src + "\" placeholder=\"https:// ... image.jpg\" class=\"form-control\"/>\n        <span class=\"input-group-btn\"><button class=\"btn btn-default\" type=\"button\" id=\"bs-eb-src-browse\">" + (BsEbConstant.translate('Browse')) + "</button></span>\n    </div>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">alt=&quot;...&quot;</code>\n    <label for=\"bs-eb-alt\">" + (BsEbConstant.translate('Image description')) + "</label>\n    <input type=\"text\" id=\"bs-eb-alt\" value=\"" + alt + "\" class=\"form-control\" maxlength=\"50\"/>\n</div>\n<div class=\"form-group\">\n    <code class=\"pull-right\">width=&quot;...&quot; height=&quot;...&quot;</code>\n    <label for=\"bs-eb-width\">" + (BsEbConstant.translate('Width')) + " &times; " + (BsEbConstant.translate('Height')) + "</label>\n    <div class=\"row\">\n        <div class=\"col-xs-5\"><input type=\"text\" id=\"bs-eb-width\" value=\"" + width + "\" class=\"form-control\" maxlength=\"5\"/></div>\n        <div class=\"col-xs-2 text-center\"><button type=\"button\" class=\"btn btn-default btn-block active\" id=\"bs-eb-btn-ratio\"><span class=\"glyphicon glyphicon-transfer\"></span></button></div>\n        <div class=\"col-xs-5\"><input type=\"text\" id=\"bs-eb-height\" value=\"" + height + "\" class=\"form-control\" maxlength=\"5\"/></div>\n    </div>\n</div>\n<div class=\"checkbox\">\n    <label><input type=\"checkbox\" id=\"bs-eb-block\"" + (isBlock ? ' checked="checked"' : '') + "/>\n    " + (BsEbConstant.translate('Image as a block')) + " <code>&quot;display:block&quot;</code></label>\n</div>\n<hr/>\n<div class=\"form-group\">\n    <code class=\"pull-right\">href=&quot;...&quot;</code>\n    <label for=\"bs-eb-href\">" + (BsEbConstant.translate('Url')) + "</label>\n    <input type=\"url\" id=\"bs-eb-href\" value=\"" + href + "\" placeholder=\"https://...\" class=\"form-control\"/>\n</div>",
         btnOkClick: function() {
           var hrefVal, inputHeight, inputIsBlock, inputWidth;
           modal.hide();
@@ -127,9 +127,58 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
           });
         }
       });
+      ratio = width > 0 && height > 0 ? width / height : 1;
       $src = $('#bs-eb-src');
-      $src.on('change blur', this.detectSize).data('prevVal', $src.val());
+      $src.on('change blur', this.detectSize).data('ratio', ratio).data('prevVal', $src.val());
+      this.ratioTool();
       return this;
+    };
+
+    BsEbTypeElementImage.prototype.ratioTool = function() {
+      var $btnRatio, $height, $src, $width, calcSize;
+      $src = $('#bs-eb-src');
+      $width = $('#bs-eb-width');
+      $height = $('#bs-eb-height');
+      $btnRatio = $('#bs-eb-btn-ratio');
+      calcSize = function(widthOrHeight) {
+        var height, ratio, width;
+        if (widthOrHeight == null) {
+          widthOrHeight = 'width';
+        }
+        if (!$btnRatio.hasClass('active')) {
+          return;
+        }
+        width = parseInt($width.val());
+        height = parseInt($height.val());
+        ratio = $src.data('ratio');
+        if (isNaN(width) || width < 1) {
+          width = 0;
+        }
+        if (isNaN(height) || height < 1) {
+          height = 0;
+        }
+        if ('width' === widthOrHeight) {
+          height = Math.round(width / ratio);
+          if (height > 0) {
+            $height.val(height);
+          }
+        } else {
+          width = Math.round(height * ratio);
+          if (width > 0) {
+            $width.val(width);
+          }
+        }
+      };
+      $btnRatio.on('click', function() {
+        $btnRatio.toggleClass('active');
+        return calcSize();
+      });
+      $width.on('keyup', function() {
+        return calcSize();
+      });
+      return $height.on('keyup', function() {
+        return calcSize('height');
+      });
     };
 
     BsEbTypeElementImage.prototype.detectSize = function() {
@@ -141,7 +190,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       if (!$src.val() || $src.val() === $src.data('prevVal')) {
         return false;
       }
-      $src.data('prevVal', $src.val());
+      $src.data('ratio', 1).data('prevVal', $src.val());
       imgClassName = 'bs-eb-img-detect-size';
       cleanImgs = function() {
         return $('.' + imgClassName).remove();
@@ -153,8 +202,13 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
         top: '-100%'
       }).on('load', function() {
         return setTimeout(function() {
-          $width.val($img.width());
-          $height.val($img.height());
+          var height, ratio, width;
+          width = $img.width();
+          height = $img.height();
+          ratio = width > 0 && height > 0 ? width / height : 1;
+          $width.val(width);
+          $height.val(height);
+          $src.data('ratio', ratio);
           return cleanImgs();
         }, 200);
       }).on('error', function() {
