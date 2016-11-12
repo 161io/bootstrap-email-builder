@@ -69,7 +69,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
       })(this)).on('blur', (function(_this) {
         return function() {
           _this.disableSortable(false);
-          if (!_this.$element.text()) {
+          if (!_this.$element.text() && !_this.$element.find('hr,img').length) {
             return _this.$element.html(_this.defaultText);
           }
         };

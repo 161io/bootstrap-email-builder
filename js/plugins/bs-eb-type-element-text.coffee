@@ -63,7 +63,8 @@ class win.BsEbTypeElementText extends win.AbstractBsEbTypeElement
                 if @$element.text() == $(@defaultText).text() then tinyMCE.get(newId).setContent ''
             .on 'blur', =>
                 @disableSortable false
-                if !@$element.text() then @$element.html @defaultText
+                if !@$element.text() and !@$element.find('hr,img').length
+                    @$element.html @defaultText
             .on 'bseb-elt-more', @onMore
         @
 
