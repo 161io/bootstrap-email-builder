@@ -35,7 +35,7 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 
     BsEbTypeElementDivider.prototype.buildHtml = function($helper, type, html) {
       if (!html) {
-        html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">\n<hr noshade=\"noshade\" size=\"" + this.defaultSize + "\" color=\"" + this.defaultColor + "\" style=\"" + this.defaultStyle + "\"/>\n</div>";
+        html = "<div class=\"" + BsEbConstant.CLASS_NAME_ELEMENT_CONTENT + "\" data-type=\"" + type + "\">\n<hr noshade=\"noshade\" size=\"" + this.defaultSize + "\" color=\"" + this.defaultColor + "\" style=\"background-color:" + this.defaultColor + ";" + this.defaultStyle + "\"/>\n</div>";
       }
       return BsEbTypeElementDivider.__super__.buildHtml.call(this, $helper, type, html);
     };
@@ -63,7 +63,8 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
             $hr.removeAttr('noshade');
           }
           size = self._intFilter($('#bs-eb-size').val());
-          return $hr.attr('size', size).css('height', size).attr('color', $('#bs-eb-color').val());
+          color = $('#bs-eb-color').val();
+          return $hr.attr('size', size).css('height', size).attr('color', color).css('backgroundColor', color);
         },
         modalReady: function() {
           return BsEbColorSelection.colorpicker('#bs-eb-color');

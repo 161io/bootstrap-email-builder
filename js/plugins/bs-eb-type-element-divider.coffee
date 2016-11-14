@@ -34,7 +34,7 @@ class win.BsEbTypeElementDivider extends win.AbstractBsEbTypeElement
         if !html
             html = """
                 <div class="#{ BsEbConstant.CLASS_NAME_ELEMENT_CONTENT }" data-type="#{ type }">
-                <hr noshade="noshade" size="#{ @defaultSize }" color="#{ @defaultColor }" style="#{ @defaultStyle }"/>
+                <hr noshade="noshade" size="#{ @defaultSize }" color="#{ @defaultColor }" style="background-color:#{ @defaultColor };#{ @defaultStyle }"/>
                 </div>
                 """
         super $helper, type, html
@@ -83,10 +83,12 @@ class win.BsEbTypeElementDivider extends win.AbstractBsEbTypeElement
                     $hr.removeAttr 'noshade'
 
                 size = self._intFilter $('#bs-eb-size').val()
+                color = $('#bs-eb-color').val();
                 $hr
                     .attr 'size', size
                     .css 'height', size
-                    .attr 'color', $('#bs-eb-color').val()
+                    .attr 'color', color
+                    .css 'backgroundColor', color
 
             modalReady: ->
                 BsEbColorSelection.colorpicker '#bs-eb-color'
