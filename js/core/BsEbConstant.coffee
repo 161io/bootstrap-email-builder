@@ -1,4 +1,4 @@
-# Copyright (c) 161 SARL, http://161.io
+# Copyright (c) 161 SARL, https://161.io
 
 class win.BsEbConstant
     @CLASS_NAME_CONTAINER       : 'eb-container'

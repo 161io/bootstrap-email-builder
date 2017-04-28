@@ -1,7 +1,7 @@
 
 /*!
 Bootstrap Email Builder v0.0.1
-Copyright (c) 161 SARL, http://161.io
+Copyright (c) 161 SARL, https://161.io
 License: https://github.com/161io/bootstrap-email-builder/blob/master/license.txt
  */
 

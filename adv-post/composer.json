@@ -4,6 +4,6 @@
     "type": "library",
     "homepage": "https://github.com/basselin/bootstrap-email-builder",
     "require": {
-        "phpmailer/phpmailer": "^6.0.0rc2"
+        "phpmailer/phpmailer": "^6.0.0rc5"
     }
 }

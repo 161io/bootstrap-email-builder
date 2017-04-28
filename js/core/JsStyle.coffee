@@ -1,4 +1,4 @@
-# Copyright (c) 161 SARL, http://161.io
+# Copyright (c) 161 SARL, https://161.io
 
 # CSS tools ( without jQuery )
 # @link https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet

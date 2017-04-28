@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 161 SARL, http://161.io
+ * Copyright (c) 161 SARL, https://161.io
  */
 
 module.exports = function(grunt) {
