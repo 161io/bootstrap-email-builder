@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Bootstrap Email Builder</title>
 
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <!-- <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/> -->
-    <link href="bower_components/highlightjs/styles/github.css" type="text/css" rel="stylesheet"/>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <!-- <link href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" type="text/css" rel="stylesheet"/> -->
+    <link href="node_modules/highlightjs/styles/github.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
     <div class="container-fluid">
@@ -61,7 +61,7 @@
 
     </div>
 
-    <script src="bower_components/highlightjs/highlight.pack.min.js"></script>
+    <script src="node_modules/highlightjs/highlight.pack.min.js"></script>
     <script>
     if (window.hljs) {
         hljs.initHighlightingOnLoad();

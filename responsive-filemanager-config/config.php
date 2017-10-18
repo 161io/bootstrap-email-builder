@@ -74,7 +74,7 @@ $config = array(
 	|
 	*/
 	//'upload_dir' => '/source/',
-	'upload_dir' => '/bower_components/responsive-filemanager/source/',
+	'upload_dir' => '/node_modules_zip/responsive-filemanager/source/',
 
 	/*
 	|--------------------------------------------------------------------------

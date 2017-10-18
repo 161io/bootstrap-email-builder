@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-email-builder",
   "description": "Bootstrap Email Builder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "SEE LICENSE IN <license.txt>",
   "authors": [
     "161 SARL <contact@161.io> (https://161.io)"
@@ -14,19 +14,36 @@
     "url": "https://github.com/161io/bootstrap-email-builder/issues"
   },
   "homepage": "https://github.com/161io/bootstrap-email-builder",
+  "dependencies": {
+    "bootstrap": "^3.3",
+    "bootstrap-colorpicker": "^2.5",
+    "featherlight": "^1.7",
+    "jquery": "1.12 - 3",
+    "jquery-ui-dist": "^1.12",
+    "tinymce": "^4.5"
+  },
+  "zipDependencies": {
+    "jqueryui_touch_punch": "https://github.com/furf/jquery-ui-touch-punch/archive/master.zip",
+    "responsive_filemanager": "https://github.com/trippo/ResponsiveFilemanager/releases/download/v9.12.0/responsive_filemanager.zip",
+    "tinymce_langs_de": "https://tinymce-services.azurewebsites.net/1/i18n/download?langs=de",
+    "tinymce_langs_fr_FR": "https://tinymce-services.azurewebsites.net/1/i18n/download?langs=fr_FR"
+  },
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-coffee": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.1.0",
+    "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^2.3.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-exec": "^2.0.0",
-    "grunt-version": "^1.1.1"
+    "grunt-curl": "^2.2.1",
+    "grunt-version": "^1.2.1",
+    "grunt-zip": "^0.17.1",
+    "highlightjs": "^9.10.0"
   },
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "grunt install-step-2",
+    "serve": "php -S 0.0.0.0:8080 -t ./"
   }
 }

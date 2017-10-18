@@ -1,6 +1,6 @@
 
 /*!
-Bootstrap Email Builder v0.0.1
+Bootstrap Email Builder v0.0.3
 Copyright (c) 161 SARL, https://161.io
 License: https://github.com/161io/bootstrap-email-builder/blob/master/license.txt
  */
@@ -10,9 +10,9 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 
   win = window;
 
-  responsiveFilemanagerPath = 'bower_components/responsive-filemanager/';
+  responsiveFilemanagerPath = 'node_modules_zip/responsive-filemanager/';
 
-  pluginsResponsiveFilemanagerPath = '../responsive-filemanager/';
+  pluginsResponsiveFilemanagerPath = '../../node_modules_zip/responsive-filemanager/';
 
   language = 'en';
 

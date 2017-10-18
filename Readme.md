@@ -7,14 +7,23 @@
 
 ## Installation
 
-Install Bower dependencies with Grunt :
+Install all dependencies :
 
-    $ npm install
-    $ grunt bower_update
+```bash
+$ npm install
+```
 
 Once installed, you can test it out immediately using PHP's built-in web server :
 
-    $ php -S 0.0.0.0:8080 -t ./
+```bash
+$ npm run serve
+```
+
+or
+
+```bash
+$ php -S 0.0.0.0:8080 -t ./
+```
 
 
 ## License

@@ -7,9 +7,9 @@ License: https://github.com/161io/bootstrap-email-builder/blob/master/license.tx
 win = window
 
 
-# @see: /bower_components/responsive-filemanager/filemanager/config/config.php
-responsiveFilemanagerPath        = 'bower_components/responsive-filemanager/'
-pluginsResponsiveFilemanagerPath = '../responsive-filemanager/'
+# @see: /node_modules_zip/responsive-filemanager/filemanager/config/config.php
+responsiveFilemanagerPath        = 'node_modules_zip/responsive-filemanager/'
+pluginsResponsiveFilemanagerPath = '../../node_modules_zip/responsive-filemanager/'
 
 
 language = 'en'

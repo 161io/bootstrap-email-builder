@@ -113,27 +113,48 @@ module.exports = function(grunt) {
                 src: '**/*.min.js',
                 dest: 'dist/js/'
             },
-            // bower update
-            tinymce_langs: { // https://www.tinymce.com/download/language-packages/
-                expand: true,
-                cwd: 'bower_components/',
-                src: 'tinymce-langs-*/index.js',
-                dest: 'bower_components/tinymce-dist/langs/',
-                rename: function (dest, src) {
-                    src = src.replace(/(tinymce-langs-)(.+)(\/index\.js)/, '$2.js');
-                    return dest + src;
-                }
-            },
+            // curl+unzip
             responsive_filemanager_config: {
                 expand: true,
                 cwd: 'responsive-filemanager-config/',
                 src: '*.php',
-                dest: 'bower_components/responsive-filemanager/filemanager/config/'
+                dest: 'node_modules_zip/responsive-filemanager/filemanager/config/'
             }
         },
-        exec: {
-            bower: {
-                command: 'bower update'
+        curl: {
+            jqueryui_touch_punch: {
+                src: '<%= pkg.zipDependencies.jqueryui_touch_punch %>',
+                dest: 'node_modules_zip/jqueryui_touch_punch.zip'
+            },
+            responsive_filemanager: {
+                src: '<%= pkg.zipDependencies.responsive_filemanager %>',
+                dest: 'node_modules_zip/responsive_filemanager.zip'
+            },
+            tinymce_langs_de: {
+                src: '<%= pkg.zipDependencies.tinymce_langs_de %>',
+                dest: 'node_modules_zip/tinymce_langs_de.zip'
+            },
+            tinymce_langs_fr_FR: {
+                src: '<%= pkg.zipDependencies.tinymce_langs_fr_FR %>',
+                dest: 'node_modules_zip/tinymce_langs_fr_FR.zip'
+            }
+        },
+        unzip: {
+            jqueryui_touch_punch: {
+                src: 'node_modules_zip/jqueryui_touch_punch.zip',
+                dest: 'node_modules_zip'
+            },
+            responsive_filemanager: {
+                src: 'node_modules_zip/responsive_filemanager.zip',
+                dest: 'node_modules_zip/responsive-filemanager'
+            },
+            tinymce_langs_de: {
+                src: 'node_modules_zip/tinymce_langs_de.zip',
+                dest: 'node_modules/tinymce'
+            },
+            tinymce_langs_fr_FR: {
+                src: 'node_modules_zip/tinymce_langs_fr_FR.zip',
+                dest: 'node_modules/tinymce'
             }
         },
         version: {
@@ -168,8 +189,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-curl');
     grunt.loadNpmTasks('grunt-version');
+    grunt.loadNpmTasks('grunt-zip');
 
     grunt.registerTask('default', [
         'clean:min',
@@ -181,7 +203,6 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('dist', ['version:dist', 'clean:dist', 'copy:dist_css', 'copy:dist_js']);
 
-    // Install or update Bower with Grunt!
-    grunt.registerTask('bower_update', ['exec:bower', 'copy:tinymce_langs', 'copy:responsive_filemanager_config']);
+    grunt.registerTask('install-step-2', ['curl', 'unzip', 'copy:responsive_filemanager_config']);
 
 };
